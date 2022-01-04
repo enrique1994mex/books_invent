@@ -21,7 +21,7 @@ export default function Layout({title, children}) {
                     <li className=''><NextLink href='/register'><a className='text-white bg-teal-500 cursor-pointer rounded inline-block mx-2 p-1 text-lg hover:bg-teal-600'>Register</a></NextLink></li>
                 </ul>
             </div>
-            <div>
+            <div className='h-screen'>
                 {children}
             </div>
             <footer>
