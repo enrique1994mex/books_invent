@@ -23,7 +23,7 @@ export default function Register() {
         if (userInfo) {
             router.push('/');
         }
-    }, []);
+    }, [router, userInfo]);
 
     const formik = useFormik({
         initialValues: {

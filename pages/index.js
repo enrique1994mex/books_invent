@@ -22,13 +22,13 @@ export default function Home(props) {
     if (!userInfo) {
       router.push('/login');
     }
-  },[userInfo])
+  },[userInfo, router])
 
   useEffect(() => {
     //Llamada a la B.D para mostrar los libros
     const {books} = props; 
     return setBooks(books)
-  }, []);
+  }, [props]);
   
   return (
     <div>

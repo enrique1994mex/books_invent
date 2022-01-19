@@ -23,7 +23,7 @@ export default function Login() {
         if (userInfo) {
             router.push('/');
         }
-    }, []);
+    }, [router, userInfo]);
 
     const formik = useFormik({
         initialValues: {
@@ -97,7 +97,7 @@ export default function Login() {
                         </div>
 
                         <div className="m-4 p-2">
-                            You don't have an account &nbsp; <NextLink href='/register'><a className="text-blue-600 hover:underline">Register</a></NextLink>
+                            You don&#39;t have an account &nbsp; <NextLink href='/register'><a className="text-blue-600 hover:underline">Register</a></NextLink>
                         </div>
                     </form>
                 </div>
