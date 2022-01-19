@@ -63,7 +63,7 @@ export default function NuevoLibro() {
                     </div>
 
                     <div className="m-4 p-2">
-                        <label className="w-full inline-block my-2" htmlFor="author">Autho's name</label>
+                        <label className="w-full inline-block my-2" htmlFor="author">Autho&#39;s name</label>
                         <input className="w-full bg-white focus:outline-none rounded-md focus:ring focus:ring-teal-500 focus:border-teal-500"
                             id="author"
                             name="author"
