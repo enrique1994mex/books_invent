@@ -47,7 +47,7 @@ export default function Register() {
                 }, 3000);
             } else {
                 try {
-                    const {data} = await axios.post('http://localhost:4000/api/users/register', {name, email, password });
+                    const {data} = await axios.post('https://apibooksinvent.herokuapp.com/api/users/register', {name, email, password });
                     dispatch({ type: 'USER_LOGIN', payload: data });
                     Cookies.set('userInfo', JSON.stringify(data));
                     guardarMensaje("User saved successfully");

@@ -63,7 +63,7 @@ export default function Home(props) {
 
 export async function getServerSideProps() {
   // Get external data from the file system, API, DB, etc.
-  const {data} = await axios.get('http://localhost:4000/api/books'); 
+  const {data} = await axios.get('https://apibooksinvent.herokuapp.com/api/books'); 
   const books = data.map(book => ({...book})); 
   // The value of the `props` key will be
   //  passed to the `Home` component

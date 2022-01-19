@@ -29,7 +29,7 @@ export default function NuevoLibro() {
         onSubmit: async values => {
             const {title, author, lastName, year} = values; 
             try {
-                const {data} = await axios.post('http://localhost:4000/api/books', {title, author, lastName, year}); 
+                const {data} = await axios.post('https://apibooksinvent.herokuapp.com/api/books', {title, author, lastName, year}); 
                 console.log(data);
                 enqueueSnackbar(data.Message, {variant: 'success'});
                 setTimeout( () => {
