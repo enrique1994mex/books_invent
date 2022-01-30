@@ -1,12 +1,11 @@
 import React, { useContext, useEffect } from 'react';
-import UserContext from '../context/user/index';
+import UserContext from '../context/user/UserContext';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 
 export default function Header () {
 
-    const { state, dispatch } = useContext(UserContext);
-    const { userInfo } = state;
+    const { userInfo, signOff } = useContext(UserContext);
 
     //routing
     const router = useRouter();
@@ -18,7 +17,7 @@ export default function Header () {
     const { name } = userInfo;
 
     const cerrarSesion = () => {
-        dispatch({ type: 'USER_LOGOUT' });
+        signOff(); 
         Cookies.remove('userInfo');
         router.push('/login');
     }

@@ -1,24 +1,20 @@
 import Layout from "../components/Layout";
-import { useRouter } from "next/router";
 import { useFormik } from "formik";
-import * as Yup from 'yup'; 
-import axios from 'axios';
+import * as Yup from 'yup';
 import { useSnackbar } from 'notistack';
+import apiCall from '../api';
 
 export default function NuevoLibro() {
 
     //notistack
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-    //routing
-    const router = useRouter();
-
     const formik = useFormik({
         initialValues: {
             title: '',
             author: '',
             lastName: '',
-            year: '', 
+            year: '',
         },
         validationSchema: Yup.object({
             title: Yup.string().required('Title is required'),
@@ -27,19 +23,30 @@ export default function NuevoLibro() {
             year: Yup.number().required('Year is required').positive('The number must be positive').integer('The number must be integer')
         }),
         onSubmit: async values => {
-            const {title, author, lastName, year} = values; 
+            const { title, author, lastName, year } = values;
             try {
-                const {data} = await axios.post('https://apibooksinvent.herokuapp.com/api/books', {title, author, lastName, year}); 
-                console.log(data);
-                enqueueSnackbar(data.Message, {variant: 'success'});
-                setTimeout( () => {
-                    closeSnackbar();
-                }, 3000);
+                const response = await apiCall({
+                    url: 'https://apibooksinvent.herokuapp.com/api/books',
+                    method: 'POST',
+                    body: JSON.stringify({ title, author, lastName, year }),
+                    headers: { 'Content-Type': 'application/json' },
+                })
+
+                if(response.status === 200) {
+                    const data = await response.json()
+                    enqueueSnackbar(data.Message, { variant: 'success' })
+                        setTimeout(() => {
+                            closeSnackbar();
+                        }, 3000);
+                } else if (response.status === 400) {
+                    const error = await response.json()
+                    enqueueSnackbar(error.error, { variant: 'error' });
+                        setTimeout(() => {
+                            closeSnackbar();
+                        }, 3000);
+                }
             } catch (error) {
-                enqueueSnackbar(error.response.data.error, {variant: 'error'});
-                setTimeout( () => {
-                    closeSnackbar();
-                }, 3000);
+                console.log(error)
             }
         },
     });

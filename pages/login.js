@@ -1,29 +1,36 @@
 import Layout from "../components/Layout";
 import NextLink from 'next/link';
 import { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/router';
-import UserContext from "../context/user";
+import UserContext from "../context/user/UserContext";
 import Cookies from 'js-cookie';
 
 export default function Login() {
 
-    const { state, dispatch } = useContext(UserContext);
-    const { userInfo } = state;
+    const { userInfo, getUser, errorMessage } = useContext(UserContext);
 
     //routing
     const router = useRouter();
 
     //mensaje
-    const [mensaje, guardarMensaje] = useState(null); 
+    const [mensaje, guardarMensaje] = useState(null);
 
     useEffect(() => {
         if (userInfo) {
-            router.push('/');
+            guardarMensaje('Authenticating');
+            Cookies.set('userInfo', JSON.stringify(userInfo));
+            setTimeout(() => {
+                router.push('/');
+            }, 2000);
+        } else if (errorMessage) {
+            guardarMensaje(errorMessage.error)
+            setTimeout(() => {
+                guardarMensaje(null);
+            }, 2000);
         }
-    }, [router, userInfo]);
+    }, [router, userInfo, errorMessage]);
 
     const formik = useFormik({
         initialValues: {
@@ -36,25 +43,12 @@ export default function Login() {
         }),
         onSubmit: async values => {
             const { email, password } = values;
-            try {
-                const { data } = await axios.post('https://apibooksinvent.herokuapp.com/api/users/login', { email, password });
-                guardarMensaje('Authenticating...');  
-                dispatch({ type: 'USER_LOGIN', payload: data });
-                Cookies.set('userInfo', JSON.stringify(data));
-                setTimeout(() => {
-                    router.push('/');
-                }, 2000);
-            } catch (error) {
-                guardarMensaje(error.response.data.error); 
-                setTimeout( () => {
-                    guardarMensaje(null);
-                }, 3000);
-            }
+            await getUser(email, password)
         },
     });
 
     const mostrarMensaje = () => {
-        return(
+        return (
             <div className="bg-white py-2 px-3 w-full my-3 max-w-sm text-center mx-auto">
                 <p>{mensaje}</p>
             </div>

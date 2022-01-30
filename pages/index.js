@@ -1,17 +1,16 @@
 import Layout from "../components/Layout";
 import { useContext, useEffect, useState } from 'react';
-import UserContext from '../context/user/index';
+import UserContext from '../context/user/UserContext';
 import { useRouter } from 'next/router';
 import NextLink from 'next/link';
-import axios from 'axios'; 
 import Book from "../components/Book";
+import apiCall from "../api";
 
 export default function Home(props) {
 
   //Context
-  const { state, dispatch } = useContext(UserContext);
-  const { userInfo } = state;
-
+  const { userInfo } = useContext(UserContext);
+  
   //Data fetch
   const [books, setBooks] = useState([]);
 
@@ -20,14 +19,15 @@ export default function Home(props) {
 
   useEffect(() => {
     if (!userInfo) {
+      
       router.push('/login');
     }
   },[userInfo, router])
 
   useEffect(() => {
     //Llamada a la B.D para mostrar los libros
-    const {books} = props; 
-    return setBooks(books)
+    const {data} = props; 
+    return setBooks(data)
   }, [props]);
   
   return (
@@ -63,12 +63,15 @@ export default function Home(props) {
 
 export async function getServerSideProps() {
   // Get external data from the file system, API, DB, etc.
-  const {data} = await axios.get('https://apibooksinvent.herokuapp.com/api/books'); 
-  const books = data.map(book => ({...book})); 
+  const response = await apiCall({
+    url: 'https://apibooksinvent.herokuapp.com/api/books',
+    headers: {'Content-Type': 'application/json'}, 
+  }); 
+  const data = await response.json();
   // The value of the `props` key will be
   //  passed to the `Home` component
   return {
-    props: {books}
+    props: {data}
   }
 }
 

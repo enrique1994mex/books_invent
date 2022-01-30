@@ -1,13 +1,13 @@
 import '../styles/globals.css';
-import UserProvider from '../context/user/User';
+import UserState from '../context/user/UserState';
 import { SnackbarProvider } from 'notistack';
 
 function MyApp({ Component, pageProps }) {
   return (
     <SnackbarProvider anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
-      <UserProvider>
-      <Component {...pageProps} />
-    </UserProvider>
+      <UserState>
+        <Component {...pageProps} />
+      </UserState>
     </SnackbarProvider>
   )
 }
