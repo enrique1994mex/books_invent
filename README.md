@@ -1,34 +1,10 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Introducción
 
-First, run the development server:
+Este proyecto es una aplicación web para registrar el inventario de una tienda de libros. Al entrar a la página se le pide al usuario autenticarse, si no está registrado se le da la opción de crear un usuario. Al autenticarse se muestran el catalogo de libros registrados y la opción de agregar más libros. Esta aplicación está construida con Next.js + Tailwind CSS por el lado del cliente, y Node.js y base de datos MySQL por el lado del servidor.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+La aplicación se encuentra en este link [booksInventory](https://books-invent.vercel.app).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Descarga la aplicación
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Clona el proyecto con git y con el comando npm start corre la aplicación en local.
